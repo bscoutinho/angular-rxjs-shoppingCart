@@ -1,0 +1,40 @@
+<ng-container *ngIf="(state | async) as s">
+
+	<h3>
+		Checkout
+		<button style="float: right;" mat-icon-button [mat-dialog-close]><mat-icon>cancel</mat-icon></button>
+  </h3>
+
+	<div *ngIf="s.cart.length > 0; else elseBlock">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title *ngIf="exchangeValue">Total: {{ s.tot.subTot * exchangeValue | number:'1.2-2'}}</mat-card-title>
+      <mat-card-subtitle>
+
+      <br />
+
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      
+  </mat-card>
+  <h4>
+    Change your currency
+  </h4>
+  <mat-form-field appearance="fill">
+    <mat-label>Currency</mat-label>
+    <mat-select (selectionChange)="changeCurrency($event.value)">
+      <mat-option *ngFor="let message of messages" [value]="message.id">
+        {{message.currencyName}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+</div>
+  <ng-template #elseBlock>
+    <h4>Thank you for your fake purchase!</h4>
+     <button type="button" mat-button color="primary" [mat-dialog-close]>
+         Close <mat-icon>cancel</mat-icon>
+        </button>
+  </ng-template>
+</ng-container>
